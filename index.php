@@ -42,7 +42,23 @@
 
             foreach($retornoAssentos as $retorno):
 
-            echo "<div class='item-container disponivel' data-number={$retorno['numero']}'>{$retorno['numero']}</div>";
+                //VERIFICAR SE O STATUS É IGUAL A DISPONÍVEL
+                if($retorno['status_assentos'] == 'disponivel'):
+                    $statusClass = 'disponivel';
+                elseif($retorno['status_assentos'] == 'ocupado'):
+                    $statusClass = 'ocupado';
+
+                    $link = "<a class='link-info' data-number='{$retorno['numero']}' data-toggle='modal' 
+                    data-target='#modalInfo' href=''>Ver Info</a>";
+                endif;
+
+                if($statusClass == 'ocupado'):
+                    echo "<div class='item-container {$statusClass}' data-number={$retorno['numero']}'>{$retorno['numero']}".$link."</div>";
+                else:
+                    echo "<div class='item-container {$statusClass}' data-number={$retorno['numero']}'>{$retorno['numero']}</div>";
+                endif;  
+
+            
 
             endforeach;
         ?>
